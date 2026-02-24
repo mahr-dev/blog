@@ -1,0 +1,26 @@
+<div class="home">
+  <div class="hero">
+    <h1>Welcome to DevBlog</h1>
+    <p>Explore the latest articles and insights</p>
+    <input type="text" placeholder="Search posts..." (input)="onSearch($event)" class="search" />
+  </div>
+
+  @if (loading()) {
+    <div class="loading">Loading posts...</div>
+  } @else {
+    <div class="posts-grid">
+      @for (post of filtered(); track post.id) {
+        <article class="post-card">
+          <span class="tag">Article #{{ post.id }}</span>
+          <h2>{{ post.title | titlecase }}</h2>
+          <p>{{ post.body | slice:0:100 }}...</p>
+          <a [routerLink]="['/post', post.id]" class="read-more">Read more &rarr;</a>
+        </article>
+      }
+    </div>
+
+    @if (filtered().length === 0) {
+      <p class="no-results">No posts found for &quot;{{ search() }}&quot;</p>
+    }
+  }
+</div>

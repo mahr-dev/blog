@@ -1,0 +1,42 @@
+<div class="post-detail">
+  <a routerLink="/" class="back">&larr; Back to Blog</a>
+
+  @if (loading()) {
+    <div class="loading">Loading article...</div>
+  } @else if (post(); as p) {
+    <article>
+      <header>
+        <span class="tag">Article #{{ p.id }}</span>
+        <h1>{{ p.title | titlecase }}</h1>
+        @if (author(); as a) {
+          <div class="author">
+            <div class="avatar">{{ a.name[0] }}</div>
+            <div>
+              <strong>{{ a.name }}</strong>
+              <span>{{ a.email }}</span>
+            </div>
+          </div>
+        }
+      </header>
+      <div class="content">
+        <p>{{ p.body }}</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+      </div>
+    </article>
+
+    <section class="comments">
+      <h3>{{ comments().length }} Comments</h3>
+      @for (c of comments(); track c.id) {
+        <div class="comment">
+          <div class="comment-header">
+            <div class="avatar small">{{ c.name[0] }}</div>
+            <strong>{{ c.name }}</strong>
+            <span class="email">{{ c.email }}</span>
+          </div>
+          <p>{{ c.body }}</p>
+        </div>
+      }
+    </section>
+  }
+</div>
